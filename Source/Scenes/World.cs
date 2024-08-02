@@ -79,7 +79,7 @@ public class World : Scene
 		{
 			Menu optionsMenu = new Menu();
 			optionsMenu.Title = Loc.Str("OptionsTitle");
-			optionsMenu.Add(new Menu.Toggle(Loc.Str("OptionsFullscreen"), Save.Instance.ToggleFullscreen, () => Save.Instance.Fullscreen));
+			//optionsMenu.Add(new Menu.Toggle(Loc.Str("OptionsFullscreen"), Save.Instance.ToggleFullscreen, () => Save.Instance.Fullscreen));
 			optionsMenu.Add(new Menu.Toggle(Loc.Str("OptionsZGuide"), Save.Instance.ToggleZGuide, () => Save.Instance.ZGuide));
 			optionsMenu.Add(new Menu.Toggle(Loc.Str("OptionsTimer"), Save.Instance.ToggleTimer, () => Save.Instance.SpeedrunTimer));
 			optionsMenu.Add(new Menu.MultiSelect<Save.InvertCameraOptions>(Loc.Str("OptionsInvertCamera"), Save.Instance.SetCameraInverted, () => Save.Instance.InvertCamera));
@@ -96,7 +96,8 @@ public class World : Scene
 				Get<Player>()?.Kill();
 			}));
 			pauseMenu.Add(new Menu.Submenu(Loc.Str("PauseOptions"), pauseMenu, optionsMenu));
-			pauseMenu.Add(new Menu.Option(Loc.Str("PauseSaveQuit"), () => Game.Instance.Goto(new Transition()
+			pauseMenu.Add(new Menu.Option(Loc.Str("PauseSaveGame"), () => Save.Instance.SaveToFile()));
+            /*pauseMenu.Add(new Menu.Option(Loc.Str("PauseSaveQuit"), () => Game.Instance.Goto(new Transition()
 			{
 				Mode = Transition.Modes.Replace,
 				Scene = () => new Overworld(true),
@@ -104,7 +105,7 @@ public class World : Scene
 				ToPause = true,
 				ToBlack = new SlideWipe(),
 				Saving = true
-			})));
+			})));*/
 		}
 
 		// environment
