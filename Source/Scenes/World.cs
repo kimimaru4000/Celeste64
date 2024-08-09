@@ -61,6 +61,10 @@ public class World : Scene
 	private int debugUpdateCount;
 	public static bool DebugDraw { get; private set; } = false;
 
+    //Autosave every 10 minutes
+    private const float AutosaveInterval = 60f * 10f;
+    private float CurrentAutosaveTimer = AutosaveInterval;
+
 	public World(EntryInfo entry)
 	{
 		Entry = entry;
@@ -351,6 +355,14 @@ public class World : Scene
 				HitStun -= Time.Delta;
 				return;
 			}
+
+            // Autosave
+            CurrentAutosaveTimer -= Time.Delta;
+            if (CurrentAutosaveTimer <= 0)
+            {
+                Save.Instance.SaveToFile();
+                CurrentAutosaveTimer = AutosaveInterval;
+            }
 
 			GeneralTimer += Time.Delta;
 
